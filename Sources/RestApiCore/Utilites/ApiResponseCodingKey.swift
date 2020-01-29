@@ -7,19 +7,13 @@
 
 import Foundation
 
-public struct ApiResponseCodingKey {
-    let key: String
-    init(_ keyValue: String) { key = keyValue }
+public struct ApiResponseKey: RawRepresentable, CodingKey {
+    public let rawValue: String
+    public init?(rawValue: String) { self.rawValue = rawValue }
+
+    public init(_ key: String) { rawValue = key }
 }
 
-extension ApiResponseCodingKey: ExpressibleByStringLiteral {
-    public init(stringLiteral value: String) { key = value }
-}
-
-extension ApiResponseCodingKey: CodingKey {
-    public var stringValue: String { key }
-    public init?(stringValue: String) { key = stringValue }
-    
-    public var intValue: Int? { Int(key) }
-    public init?(intValue: Int) { key = String(intValue) }
+extension ApiResponseKey: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) { rawValue = value }
 }
