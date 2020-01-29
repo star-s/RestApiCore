@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ApiResponseKey: RawRepresentable, CodingKey {
+public struct ApiResponseKey: RawRepresentable, CodingKey, Equatable, Hashable {
     public let rawValue: String
     public init?(rawValue: String) { self.rawValue = rawValue }
 
