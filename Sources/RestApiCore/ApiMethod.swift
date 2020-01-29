@@ -17,11 +17,11 @@ public struct ApiMethod {
         self.resultKeyPath = resultKeyPath
     }
     
-    @inlinable public func appendingPath(suffix aPath: String) -> Self {
+    public func appendingPath(suffix aPath: String) -> Self {
         ApiMethod((path as NSString).appendingPathComponent(aPath), resultKeyPath: resultKeyPath)
     }
     
-    @inlinable public func appendingPath(prefix aPath: String) -> Self {
+    public func appendingPath(prefix aPath: String) -> Self {
         ApiMethod((aPath as NSString).appendingPathComponent(path), resultKeyPath: resultKeyPath)
     }
     
