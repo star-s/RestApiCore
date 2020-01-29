@@ -39,11 +39,11 @@ public extension ApiEndpoint {
 public extension ApiTransport {
     
     /*
-     GET запрос без параметров, чистый сахар
+     запрос без параметров, чистый сахар
      */
     func perform<T: Decodable>(_ method: ApiMethod, completion: @escaping (Result<T, Error>) -> Void) -> Progress {
         perform(method, parameters: EmptyRequest(), completion: completion)
     }
 }
 
-private struct EmptyRequest: GetRequest {}
+private struct EmptyRequest: ApiRequest {}
