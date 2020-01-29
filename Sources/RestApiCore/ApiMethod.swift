@@ -64,3 +64,14 @@ extension ApiMethod: ExpressibleByStringLiteral {
         self = ApiMethod(path, resultKeyPath: keyPathSubstring.pathFromCamelCase)
     }
 }
+
+extension CodingUserInfoKey {
+    public static let resultDecodeKeyPath: CodingUserInfoKey = "resultDecodeKeyPath" // Array<ApiResponseKey>
+}
+
+extension ApiMethod {
+    
+    public var resultDecodeKeyPath: [ApiResponseKey]? {
+        resultKeyPath?.split(separator: "/").map({ ApiResponseKey(String($0)) })
+    }
+}
