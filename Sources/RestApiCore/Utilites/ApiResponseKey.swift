@@ -9,9 +9,7 @@ import Foundation
 
 public struct ApiResponseKey: RawRepresentable, CodingKey, Equatable, Hashable {
     public let rawValue: String
-    public init?(rawValue: String) { self.rawValue = rawValue }
-
-    public init(_ key: String) { rawValue = key }
+    public init(rawValue: String) { self.rawValue = rawValue }
 }
 
 extension ApiResponseKey: ExpressibleByStringLiteral {

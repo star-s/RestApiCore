@@ -72,6 +72,6 @@ extension CodingUserInfoKey {
 extension ApiMethod {
     
     public var resultDecodeKeyPath: [ApiResponseKey]? {
-        resultKeyPath?.split(separator: "/").map({ ApiResponseKey(String($0)) })
+        resultKeyPath?.split(separator: "/").map({ ApiResponseKey(rawValue: String($0)) })
     }
 }
