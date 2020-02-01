@@ -9,3 +9,7 @@ import Foundation
 
 public protocol ApiRequest: Encodable {
 }
+
+public struct VoidRequest: ApiRequest {
+    public init() {}
+}

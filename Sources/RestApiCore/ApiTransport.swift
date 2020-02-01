@@ -42,8 +42,6 @@ public extension ApiTransport {
      запрос без параметров, чистый сахар
      */
     func perform<T: Decodable>(_ method: ApiMethod, completion: @escaping (Result<T, Error>) -> Void) -> Progress {
-        perform(method, parameters: EmptyRequest(), completion: completion)
+        perform(method, parameters: VoidRequest(), completion: completion)
     }
 }
-
-private struct EmptyRequest: ApiRequest {}
