@@ -10,9 +10,9 @@ import Foundation
 public struct ApiMethod {
     
     public let path: String
-    public let resultKeyPath: String?
+    public let resultKeyPath: [ApiResponseKey]?
     
-    public init(_ path: String, resultKeyPath: String? = nil) {
+    public init(_ path: String, resultKeyPath: [ApiResponseKey]? = nil) {
         self.path = path
         self.resultKeyPath = resultKeyPath
     }
@@ -61,17 +61,15 @@ extension ApiMethod: ExpressibleByStringLiteral {
             self = ApiMethod(path)
             return
         }
-        self = ApiMethod(path, resultKeyPath: keyPathSubstring.pathFromCamelCase)
+        let keys = keyPathSubstring.pathFromCamelCase.split(separator: "/").map({ ApiResponseKey(rawValue: String($0)) })
+        if keys.isEmpty {
+            self = ApiMethod(path)
+        } else {
+            self = ApiMethod(path, resultKeyPath: keys)
+        }
     }
 }
 
 extension CodingUserInfoKey {
     public static let resultDecodeKeyPath: CodingUserInfoKey = "resultDecodeKeyPath" // Array<ApiResponseKey>
-}
-
-extension ApiMethod {
-    
-    public var resultDecodeKeyPath: [ApiResponseKey]? {
-        resultKeyPath?.split(separator: "/").map({ ApiResponseKey(rawValue: String($0)) })
-    }
 }
