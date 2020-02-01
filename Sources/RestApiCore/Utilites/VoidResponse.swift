@@ -7,6 +7,8 @@
 
 import Foundation
 
-public struct VoidResponse: Decodable {
+public typealias VoidResponse = Result<VoidValue, Error>
+
+public struct VoidValue: Decodable {
     public init(from decoder: Decoder) throws {}
 }
