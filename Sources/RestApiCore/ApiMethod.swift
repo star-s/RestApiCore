@@ -45,13 +45,13 @@ extension ApiMethod: ExpressibleByStringLiteral {
      method(keyPathInCamelCase)                                 - path: method, resultKeyPath: [key,path,in,camel,case]
      method(keyPathInCamelCase:)                                - path: method, resultKeyPath: [key,path,in,camel,case]
      method(param1:param2:keyPathInCamelCase:)                  - path: method, resultKeyPath: [key,path,in,camel,case]
-     methodNameInCamelCase(param1:param2:keyPathInCamelCase:)   - path: method/name/in/camel/case, resultKeyPath: [key,path,in,camel,case]
+     methodNameInCamelCase(param1:param2:keyPathInCamelCase:)   - path: methodNameInCamelCase, resultKeyPath: [key,path,in,camel,case]
      */
     public init(stringLiteral value: String) {
         
         var components = value.split(separator: "(")
         
-        let path = components.removeFirst().pathFromCamelCase
+        let path = String(components.removeFirst())
         
         if components.isEmpty {
             self = ApiMethod(path)
