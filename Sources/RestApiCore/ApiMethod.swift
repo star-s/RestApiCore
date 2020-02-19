@@ -49,6 +49,10 @@ extension ApiMethod: ExpressibleByStringLiteral {
      */
     public init(stringLiteral value: String) {
         
+        if value.isEmpty {
+            self = ApiMethod(value)
+            return
+        }
         var components = value.split(separator: "(")
         
         let path = String(components.removeFirst())
@@ -67,6 +71,17 @@ extension ApiMethod: ExpressibleByStringLiteral {
         } else {
             self = ApiMethod(path, resultKeyPath: keys)
         }
+    }
+}
+
+extension ApiMethod {
+    
+    func makeJsonDecoder(_ constructor: @autoclosure () -> JSONDecoder = JSONDecoder()) -> JSONDecoder {
+        let decoder = constructor()
+        if let keyPath = resultKeyPath {
+            decoder.userInfo[.resultDecodeKeyPath] = keyPath
+        }
+        return decoder
     }
 }
 
