@@ -14,15 +14,6 @@ public protocol HttpTransport {
     func PUT<R: Encodable, T: Decodable>(_ method: ApiMethod, parameters: R, completion: @escaping (Result<T, Error>) -> Void) -> Progress
     func PATCH<R: Encodable, T: Decodable>(_ method: ApiMethod, parameters: R, completion: @escaping (Result<T, Error>) -> Void) -> Progress
     func DELETE<R: Encodable, T: Decodable>(_ method: ApiMethod, parameters: R, completion: @escaping (Result<T, Error>) -> Void) -> Progress
-    
-    func upload<T: Decodable>(_ attachments: [Attachment], method: ApiMethod, completion: @escaping (Result<T, Error>) -> Void) -> Progress
-}
-
-public extension HttpTransport {
-    
-    func upload<T: Decodable>(_ attachments: [Attachment], method: ApiMethod, completion: @escaping (Result<T, Error>) -> Void) -> Progress {
-        fatalError("\(#function) has not been implemented")
-    }
 }
 
 public protocol HttpEndpoint: HttpTransport {
@@ -50,9 +41,5 @@ public extension HttpEndpoint {
     
     func DELETE<R: Encodable, T: Decodable>(_ method: ApiMethod, parameters: R, completion: @escaping (Result<T, Error>) -> Void) -> Progress {
         parent.DELETE(method.appendingPath(prefix: name), parameters: parameters, completion: completion)
-    }
-    
-    func upload<T: Decodable>(_ attachments: [Attachment], method: ApiMethod, completion: @escaping (Result<T, Error>) -> Void) -> Progress {
-        parent.upload(attachments, method: method.appendingPath(prefix: name), completion: completion)
     }
 }
