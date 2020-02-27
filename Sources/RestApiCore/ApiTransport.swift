@@ -23,13 +23,3 @@ public extension ApiEndpoint {
         parent.perform(method.appendingPath(prefix: name), parameters: parameters, completion: completion)
     }
 }
-
-public extension ApiTransport {
-    
-    /*
-     запрос без параметров, чистый сахар
-     */
-    func perform<T: Decodable>(_ method: ApiMethod, completion: @escaping (Result<T, Error>) -> Void) -> Progress {
-        perform(method, parameters: VoidRequest(), completion: completion)
-    }
-}
