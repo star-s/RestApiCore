@@ -76,7 +76,7 @@ extension ApiMethod: ExpressibleByStringLiteral {
 
 extension ApiMethod {
     
-    public func makeJsonDecoder(_ constructor: @autoclosure () -> JSONDecoder = JSONDecoder()) -> JSONDecoder {
+    public func makeJsonDecoder(_ constructor: () -> JSONDecoder = { JSONDecoder() }) -> JSONDecoder {
         let decoder = constructor()
         if let keyPath = resultKeyPath {
             decoder.userInfo[.resultDecodeKeyPath] = keyPath
