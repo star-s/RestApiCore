@@ -49,7 +49,10 @@ extension URLSessionDataTransport {
         guard var components = URLComponents(url: method.url(relativeTo: baseURL), resolvingAgainstBaseURL: true) else {
             throw PrepareRequestError.cantCreateUrlComponents
         }
-        components.query = try URLEncodedFormEncoder().encode(parameters)
+        let query: String = try URLEncodedFormEncoder().encode(parameters)
+        if !query.isEmpty {
+            components.query = query
+        }
         guard let url = components.url else {
             throw PrepareRequestError.cantCreateUrl
         }
