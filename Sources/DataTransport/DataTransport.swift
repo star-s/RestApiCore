@@ -22,7 +22,12 @@ public protocol DataTransport {
 public extension DataTransport {
     
     func handleResponse<T: Decodable>(_ result: Result<Data, Error>, method: ApiMethod) -> Result<T, Error> {
-        result.tryMap { try method.makeJsonDecoder().decode(T.self, from: $0) }
+        do {
+            let value = try method.makeJsonDecoder().decode(T.self, from: result.get())
+            return .success(value)
+        } catch {
+            return .failure(error)
+        }
     }
 }
 
