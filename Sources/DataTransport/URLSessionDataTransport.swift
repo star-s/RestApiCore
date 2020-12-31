@@ -46,7 +46,7 @@ extension URLSessionDataTransport {
     }
     
     public func prepareGetRequest<R: Encodable>(_ method: ApiMethod, parameters: R) throws -> URLRequest {
-        guard var components = URLComponents(url: method.url(relativeTo: baseURL), resolvingAgainstBaseURL: false) else {
+        guard var components = URLComponents(url: method.url(relativeTo: baseURL), resolvingAgainstBaseURL: true) else {
             throw PrepareRequestError.cantCreateUrlComponents
         }
         components.query = try URLEncodedFormEncoder().encode(parameters)
